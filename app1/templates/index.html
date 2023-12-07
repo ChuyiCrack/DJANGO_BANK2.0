@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Login</h1>
+        <div class="container">
+            <form method="post">
+                <div class="form-group">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" name="submit">submit</button>
+                    <a href="{% url 'register' %}" class="button">I do not have an account yet</a>
+                </div>
+            </form>
+        </div>
+    </body>
+    </html>
+</body>
+</html>
+
+
+<style>
+.container{
+    width: 50%;
+    margin: 0 auto;
+}
+.form-group{
+    margin: 10px 0;
+}
+.form-group input{
+    width: 100%;
+    padding: 10px;
+}
+.form-group label{
+    display: inline-block; /* Changed this line */
+    text-align: left; /* Added this line */
+}
+.form-group button{
+    padding: 10px;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+h1{
+    text-align: center;
+}
+body{
+    background: #eee;
+}
+.button {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+</style>

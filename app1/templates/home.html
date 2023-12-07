@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-Page</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="box">
+        <h1>Welcome to your bank account {{user}}</h1>
+        <a href="{% url 'withdraw' %}">Withdraw</a>
+        <a href="{% url 'deposit' %}">Deposit</a>
+        <a href="{% url 'status' %}">Status</a>
+    </div>
+</body>
+</html>
+
+<style>
+    body{
+        background-color: #f1f1f1;
+    }
+    h1{
+        text-align: center;
+        color: #333;
+    }
+    .box a{
+        display: block;
+        width: 200px;
+        margin: 10px auto;
+        padding: 10px;
+        text-align: center;
+        background-color: #333;
+        color: #fff;
+        text-decoration: none;
+    }
+    p{
+        text-align: center;
+        color: #333;
+    }
+</style>
