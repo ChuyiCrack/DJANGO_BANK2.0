@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer</title>
+    <style>
+        body {
+            background-color: #f1f1f1;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        nav {
+            margin: 20px;
+        }
+        form {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+        button[type="submit"] {
+            background-color: green;
+            color: white;
+            padding: 5px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <p>Your Balance: ${{user.balance}}</p>
+        <button type="submit">Transfer</button>
+    </form>
+</body>
+</html>

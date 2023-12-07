@@ -11,4 +11,5 @@ urlpatterns = [
     path('withdraw/',views.withdraw,name='withdraw'),
     path('deposit/',views.deposit,name='deposit'),
     path('info/<int:pk>',views.inf_movement,name='info'),
+    path('transfer/',views.transfer,name='transfer'),
 ]

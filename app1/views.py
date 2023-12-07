@@ -1,11 +1,10 @@
 from django.shortcuts import render,redirect
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm,TransferCreationForm
 from django.contrib.auth import login,logout
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Bank_Account
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
 def index(request):
     if request.method=='POST':
         form=AuthenticationForm(data=request.POST)
@@ -16,6 +15,8 @@ def index(request):
 
     else:
         form=AuthenticationForm()
+        if request.user.is_authenticated:
+            return redirect('home')
 
     context={
         'form':form
@@ -41,7 +42,7 @@ def register(request):
     return render(request,'register.html',context)
 
 
-
+@login_required
 def home(request):
 
     context={
@@ -112,3 +113,43 @@ def inf_movement(request,pk):
         'movement':Movement,
     }
     return render(request,'inf_mov.html',context)
+
+
+def transfer(request):
+    user=Bank_Account.objects.get(owner=request.user)
+    if request.method=='POST':
+        Money=request.POST['money']
+        if int(Money)>user.balance:
+            messages.error(request,'You dont have enough money')
+            return redirect('transfer')
+        
+        elif int(Money)<=0:
+            messages.error(request,'You cant transfer negative numbers or zero')
+            return redirect('transfer')
+        
+        else:
+            form=TransferCreationForm(request.POST)
+            if form.is_valid():
+                transfer=form.save(commit=False)
+                transfer.owner=request.user
+                transfer.Type_Movement="Transfer"
+                transfer.receiver.balance+=int(Money)
+                user.balance-=int(Money)
+                user.movements.add(transfer)
+                user.save()
+                transfer.save()
+                return redirect('status')
+        
+        
+
+    else:
+        form=TransferCreationForm()
+        
+
+    context={
+        'form':form,
+        'user':user,
+    }
+
+    return render(request,'transfer.html',context)
+
