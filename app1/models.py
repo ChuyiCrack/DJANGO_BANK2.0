@@ -10,17 +10,18 @@ class Movement(models.Model):
     def __str__(self):
         return self.Type_Movement
 
-class Transfer(Movement):
-    owner=models.ForeignKey(User,on_delete=models.CASCADE,related_name='owner')
-    receiver=models.ForeignKey(User,on_delete=models.CASCADE,related_name='receiver')
-
-    def __str__(self):
-        return self.owner.username
     
 class Bank_Account(models.Model):
     owner=models.ForeignKey(User,on_delete=models.CASCADE)
     balance=models.IntegerField()
-    movements=models.ManyToManyField(Movement)
+    movements=models.ManyToManyField(Movement,blank=True)
 
     def __str__(self):
         return self.owner.username
+    
+class Transfer(Movement):
+    transmitter=models.ForeignKey(Bank_Account,on_delete=models.CASCADE,related_name='transmitter',default=1)
+    receiver=models.ForeignKey(Bank_Account,on_delete=models.CASCADE,related_name='receiver')
+
+    def __str__(self):
+        return self.transmitter.owner.username+' to '+self.receiver.owner.username

@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from .forms import CustomUserCreationForm,TransferCreationForm
 from django.contrib.auth import login,logout
 from django.contrib.auth.forms import AuthenticationForm
-from .models import Bank_Account
+from .models import Bank_Account,Transfer
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 def index(request):
@@ -109,6 +109,10 @@ def deposit(request):
 def inf_movement(request,pk):
     user=Bank_Account.objects.get(owner=request.user)
     Movement=user.movements.get(id=pk)
+    print(Movement.id)
+    if Movement.Type_Movement=="Transfer":
+        Movement=Transfer.objects.get(id=pk)
+        print(Movement.id)
     context={
         'movement':Movement,
     }
@@ -131,13 +135,16 @@ def transfer(request):
             form=TransferCreationForm(request.POST)
             if form.is_valid():
                 transfer=form.save(commit=False)
-                transfer.owner=request.user
+                transfer.transmitter=user
                 transfer.Type_Movement="Transfer"
+                transfer.save()
                 transfer.receiver.balance+=int(Money)
                 user.balance-=int(Money)
                 user.movements.add(transfer)
+                transfer.receiver.movements.add(transfer)
+                transfer.receiver.save()
                 user.save()
-                transfer.save()
+                
                 return redirect('status')
         
         

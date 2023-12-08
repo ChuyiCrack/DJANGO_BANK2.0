@@ -1,4 +1,51 @@
-<h1>
-    inf_mov
-</h1>
-<p>{{movement.id}}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inf_Movements</title>
+    <style>
+        body{
+            background-color: #f1f1f1;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            
+        }
+        nav
+        {
+            margin: 20px;
+        }
+        .box{
+            margin: auto;
+            border: 3px solid #000;
+            padding: 30px 100px 30px 100px;
+            border-radius: 30px;
+            background-color: #D5D5D5  ;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="box">
+        {% if movement.Type_Movement == 'Transfer' %}
+            <p>Type Movement: {{movement.Type_Movement}}</p>
+            <p>from: {{movement.transmitter}}</p>
+            <p>To: {{movement.receiver}}</p>
+            <p>Money sent: ${{movement.money}}</p>
+            <p>Date: {{movement.Date|date:"Y-m-d H:i:s"}}</p>
+
+        {% elif movement.Type_Movement == 'Deposit' %}
+            <p>Type Movement: {{movement.Type_Movement}}</p>
+            <p>Money deposited: ${{movement.money}}</p>
+            <p>Date: {{movement.Date|date:"Y-m-d H:i:s"}}</p>
+        
+        {% else %}
+            <p>Type Movement: {{movement.Type_Movement}}</p>
+            <p>Money withdrawn: ${{movement.money}}</p>
+            <p>Date: {{movement.Date|date:"Y-m-d H:i:s"}}</p>
+    {% endif %}
+    </div>
+</body>
+</html>
