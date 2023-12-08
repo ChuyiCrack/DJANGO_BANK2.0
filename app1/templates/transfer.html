@@ -30,6 +30,13 @@
         button[type="submit"]:hover {
             background-color: darkgreen;
         }
+        label {
+            display: block;
+            margin: 10px;
+        }
+        input, select, textarea, button, .balance{
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -38,7 +45,7 @@
     <form method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <p>Your Balance: ${{user.balance}}</p>
+        <p class="balance">Your Balance: ${{user.balance}}</p>
         <button type="submit">Transfer</button>
     </form>
 </body>

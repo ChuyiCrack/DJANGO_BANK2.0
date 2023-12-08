@@ -23,6 +23,7 @@
             padding: 30px 100px 30px 100px;
             border-radius: 30px;
             background-color: #D5D5D5  ;
+            width: 200px;
         }
     </style>
 </head>
@@ -31,8 +32,10 @@
     <div class="box">
         {% if movement.Type_Movement == 'Transfer' %}
             <p>Type Movement: {{movement.Type_Movement}}</p>
+            <p>Title: {{movement.title}}</p>
             <p>from: {{movement.transmitter}}</p>
             <p>To: {{movement.receiver}}</p>
+            <p>Message: {{movement.message}}</p>
             <p>Money sent: ${{movement.money}}</p>
             <p>Date: {{movement.Date|date:"Y-m-d H:i:s"}}</p>
 

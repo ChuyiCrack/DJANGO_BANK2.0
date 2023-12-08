@@ -17,7 +17,7 @@ class CustomUserCreationForm(UserCreationForm):
 class TransferCreationForm(forms.ModelForm):
     class Meta:
         model = Transfer
-        fields=('money','receiver')
+        fields=('title','money','receiver','message')
 
     
 
